@@ -1,73 +1,117 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>RSDC College Instagram Reel Demo</title>
+    <meta charset="UTF-8">
+    <title>RSDC Official Reel Demo</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            height: 100vh; overflow: hidden;
-            background: linear-gradient(135deg, #1f3d2b 0%, #3b82f6 50%, #f59e0b 100%);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            font-family: 'Arial Black', Arial; color: white; text-align: center;
+        :root {
+            --primary: #1f3d2b; --gold: #ffd700; --white: #ffffff;
         }
-        .reel-frame {
-            width: 360px; height: 640px; /* Phone screen size */
-            background: #000; border-radius: 40px; padding: 40px 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5); position: relative;
-            animation: float 6s ease-in-out infinite;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background: #111; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+
+        /* Instagram Reel Canvas (9:16) */
+        .canvas {
+            width: 360px; height: 640px; background: var(--primary);
+            position: relative; overflow: hidden; border: 8px solid #333; border-radius: 20px;
         }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+        /* Scene Base Styling */
+        .scene {
+            position: absolute; inset: 0; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-align: center;
+            opacity: 0; visibility: hidden; transition: all 0.8s ease-in-out; padding: 30px;
         }
-        .content {
-            height: 100%; overflow: hidden; border-radius: 20px; position: relative;
-            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-        }
-        .slide {
-            position: absolute; width: 100%; height: 100%; opacity: 0; transition: all 1s ease;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px;
-        }
-        .slide.active { opacity: 1; }
-        h1 { font-size: 48px; margin-bottom: 20px; text-shadow: 0 4px 8px rgba(0,0,0,0.3); }
-        .streams { font-size: 32px; background: rgba(255,255,255,0.2); padding: 20px 40px; border-radius: 50px; margin: 20px 0; }
-        .cta { font-size: 28px; background: #f59e0b; padding: 15px 30px; border-radius: 30px; font-weight: bold; }
+        .active { opacity: 1; visibility: visible; }
+
+        /* Scene 1: Logo & Tagline */
+        .logo-box { width: 100px; height: 100px; background: var(--white); border-radius: 50%; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--primary); font-size: 2rem; border: 4px solid var(--gold); }
+        .tagline { color: var(--gold); font-weight: 800; font-size: 1.5rem; letter-spacing: 2px; }
+
+        /* Scene 2: Nurturing Minds */
+        .minds-text { color: var(--white); font-size: 1.8rem; font-weight: 300; line-height: 1.4; }
+        .highlight { color: var(--gold); font-weight: 700; display: block; margin-top: 10px; }
+
+        /* Scene 3: Badge & Streams */
+        .badge { background: var(--gold); color: var(--primary); padding: 10px 20px; border-radius: 50px; font-weight: 900; margin-bottom: 20px; transform: scale(1.2); }
+        .streams { color: var(--white); font-size: 1.4rem; font-weight: 700; letter-spacing: 3px; border-top: 1px solid var(--gold); padding-top: 10px; }
+
+        /* Scene 4: Bullets */
+        .bullets { list-style: none; color: var(--white); text-align: left; width: 100%; }
+        .bullets li { margin-bottom: 20px; font-size: 1.3rem; transform: translateX(-30px); opacity: 0; transition: 0.5s; display: flex; align-items: center; }
+        .active .bullets li { transform: translateX(0); opacity: 1; }
+        .active .bullets li:nth-child(1) { transition-delay: 0.2s; }
+        .active .bullets li:nth-child(2) { transition-delay: 0.5s; }
+        .active .bullets li:nth-child(3) { transition-delay: 0.8s; }
+        .check { color: var(--gold); margin-right: 15px; font-weight: bold; }
+
+        /* Scene 5: Footer */
+        .footer-info { color: var(--white); width: 100%; }
+        .footer-info p { margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .icon { font-size: 1.5rem; }
     </style>
 </head>
 <body>
-    <div class="reel-frame">
-        <div class="content">
-            <div class="slide active" id="slide1">
-                <h1>🌟 RSDC PU College 🌟</h1>
-                <div class="streams">Hongasandra, Bangalore</div>
-            </div>
-            <div class="slide" id="slide2">
-                <h1>📚 Commerce Excellence</h1>
-                <div class="streams">HEBA • SEBA • CEBA</div>
-            </div>
-            <div class="slide" id="slide3">
-                <h1>🎓 Why Choose Us?</h1>
-                <div style="font-size: 24px; line-height: 1.4;">
-                    ✅ Expert Faculty<br>
-                    ✅ Affordable Fees<br>
-                    ✅ Admissions Open!
-                </div>
-            </div>
-            <div class="slide" id="slide4">
-                <h1>📱 Apply Now!</h1>
-                <div class="cta">Visit rsdcpucollege.github.io<br>+91 91646 37818</div>
-            </div>
-        </div>
+
+<div class="canvas">
+    <!-- Scene 1: 2 Seconds -->
+    <div class="scene active" id="s1">
+        <div class="logo-box">RSDC</div>
+        <div class="tagline">NEVER STOP<br>LEARNING</div>
     </div>
 
-    <script>
-        const slides = document.querySelectorAll('.slide');
-        let current = 0;
-        setInterval(() => {
-            slides[current].classList.remove('active');
-            current = (current + 1) % slides.length;
-            slides[current].classList.add('active');
-        }, 3000);
-    </script>
+    <!-- Scene 2: 3 Seconds -->
+    <div class="scene" id="s2">
+        <p class="minds-text">Nurturing Minds,<br><span class="highlight">Building Character</span></p>
+    </div>
+
+    <!-- Scene 3: 3 Seconds -->
+    <div class="scene" id="s3">
+        <div class="badge">ADMISSIONS OPEN<br>2026 - 27</div>
+        <div class="streams">HEBA | SEBA | CEBA</div>
+    </div>
+
+    <!-- Scene 4: 3 Seconds -->
+    <div class="scene" id="s4">
+        <ul class="bullets">
+            <li><span class="check">✔</span> Expert Faculty</li>
+            <li><span class="check">✔</span> Affordable Fees</li>
+            <li><span class="check">✔</span> Merit Concession</li>
+        </ul>
+    </div>
+
+    <!-- Scene 5: 2 Seconds -->
+    <div class="scene" id="s5">
+        <div class="footer-info">
+            <p><span class="icon">📍</span> Hongasandra, Bangalore</p>
+            <p><span class="icon">📞</span> +91 91646 37818</p>
+            <p><span class="icon">📸</span> @rsdcpu_official</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const scenes = [
+        { id: 's1', time: 2000 },
+        { id: 's2', time: 3000 },
+        { id: 's3', time: 3000 },
+        { id: 's4', time: 3000 },
+        { id: 's5', time: 2000 }
+    ];
+
+    let current = 0;
+
+    function playNext() {
+        document.getElementById(scenes[current].id).classList.remove('active');
+        current = (current + 1) % scenes.length;
+        document.getElementById(scenes[current].id).classList.add('active');
+        
+        setTimeout(playNext, scenes[current].time);
+    }
+
+    // Start the cycle
+    setTimeout(playNext, scenes[0].time);
+</script>
+
 </body>
 </html>
