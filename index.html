@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RSDC College Instagram Reel Demo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            height: 100vh; overflow: hidden;
+            background: linear-gradient(135deg, #1f3d2b 0%, #3b82f6 50%, #f59e0b 100%);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            font-family: 'Arial Black', Arial; color: white; text-align: center;
+        }
+        .reel-frame {
+            width: 360px; height: 640px; /* Phone screen size */
+            background: #000; border-radius: 40px; padding: 40px 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5); position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .content {
+            height: 100%; overflow: hidden; border-radius: 20px; position: relative;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+        }
+        .slide {
+            position: absolute; width: 100%; height: 100%; opacity: 0; transition: all 1s ease;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px;
+        }
+        .slide.active { opacity: 1; }
+        h1 { font-size: 48px; margin-bottom: 20px; text-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+        .streams { font-size: 32px; background: rgba(255,255,255,0.2); padding: 20px 40px; border-radius: 50px; margin: 20px 0; }
+        .cta { font-size: 28px; background: #f59e0b; padding: 15px 30px; border-radius: 30px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="reel-frame">
+        <div class="content">
+            <div class="slide active" id="slide1">
+                <h1>🌟 RSDC PU College 🌟</h1>
+                <div class="streams">Hongasandra, Bangalore</div>
+            </div>
+            <div class="slide" id="slide2">
+                <h1>📚 Commerce Excellence</h1>
+                <div class="streams">HEBA • SEBA • CEBA</div>
+            </div>
+            <div class="slide" id="slide3">
+                <h1>🎓 Why Choose Us?</h1>
+                <div style="font-size: 24px; line-height: 1.4;">
+                    ✅ Expert Faculty<br>
+                    ✅ Affordable Fees<br>
+                    ✅ Admissions Open!
+                </div>
+            </div>
+            <div class="slide" id="slide4">
+                <h1>📱 Apply Now!</h1>
+                <div class="cta">Visit rsdcpucollege.github.io<br>+91 91646 37818</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let current = 0;
+        setInterval(() => {
+            slides[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
+        }, 3000);
+    </script>
+</body>
+</html>
